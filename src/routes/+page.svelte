@@ -8,6 +8,7 @@
 	import { ROUTES } from '$lib/constants/routes';
 	import Button from '$lib/components/ui/Button.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
+	import { t } from '$lib/translations/translations';
 </script>
 
 <div class="h-auto w-full px-10 pt-5 dark:invert">
@@ -16,14 +17,8 @@
 <OffersBlock />
 <AppointmentsBlock />
 <Section transparent>
-	<!-- <Button
-		label={$t('common.makeAnAppointment')}
-		icon={ClockPlus}
-		onclick={() => goto(ROUTES.APPOINTMENT)}
-		full
-	/> -->
 	<Button
-		label="Make an appointment"
+		label={$t('common.makeAnAppointment')}
 		icon={ClockPlus}
 		onclick={() => goto(ROUTES.APPOINTMENT)}
 		full
