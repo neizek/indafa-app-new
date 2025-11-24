@@ -10,15 +10,15 @@
 // session
 // } from '$lib/stores/auth';
 // import { intendedUrl, previousUrl } from '$lib/stores/navigation';
-// import { initTheme } from '$lib/stores/theme';
+import { initTheme } from '$lib/stores/theme';
 import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
-// import { LocalNotifications } from '@capacitor/local-notifications';
+import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
 // import { resolve } from '$app/paths';
 // import preferences from '$lib/helpers/preferences.js';
 // import { initCarWashes } from '$lib/stores/carWashes';
 // import { onMount } from 'svelte';
-// import { Capacitor } from '@capacitor/core';
+import { Capacitor } from '@capacitor/core';
 
 export const prerender = true;
 export const ssr = false;
@@ -28,7 +28,7 @@ export const ssr = false;
 // onMount(async () => {
 // const savedLocale = await preferences.get<string>('locale');
 loadTranslations(supportedLocalesOptions[0].value);
-// initTheme();
+initTheme();
 // await initSession();
 // await initCarWashes();
 // initAuthListener();
@@ -45,19 +45,19 @@ loadTranslations(supportedLocalesOptions[0].value);
 // ];
 
 // Only check notification permissions if running natively
-// if (Capacitor.isNativePlatform()) {
-// 	LocalNotifications.checkPermissions()
-// 		.then((status) => {
-// 			if (status.display === 'prompt' || status.display === 'prompt-with-rationale') {
-// 				LocalNotifications.requestPermissions().catch((err) => {
-// 					console.log('Notification permission request error:', err);
-// 				});
-// 			}
-// 		})
-// 		.catch((err) => {
-// 			console.log('Failed to check notification permissions:', err);
-// 		});
-// }
+if (Capacitor.isNativePlatform()) {
+	LocalNotifications.checkPermissions()
+		.then((status) => {
+			if (status.display === 'prompt' || status.display === 'prompt-with-rationale') {
+				LocalNotifications.requestPermissions().catch((err) => {
+					console.log('Notification permission request error:', err);
+				});
+			}
+		})
+		.catch((err) => {
+			console.log('Failed to check notification permissions:', err);
+		});
+}
 
 // export async function load(page) {
 // 	// Wait for store initialization
