@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import ScrollableSection from '$lib/components/ui/ScrollableSection.svelte';
 	import AppointmentCard from '$lib/components/widgets/AppointmentCard.svelte';
 	import { AppointmentStatusEnum } from '$lib/enums/appointments';
@@ -41,4 +41,4 @@
 	{#snippet itemRenderer(appointment)}
 		<AppointmentCard {appointment} />
 	{/snippet}
-</ScrollableSection> -->
+</ScrollableSection>
