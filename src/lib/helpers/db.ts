@@ -1,15 +1,14 @@
+import { browser } from '$app/environment';
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient(
-	import.meta.env.VITE_SUPABASE_URL,
-	import.meta.env.VITE_SUPABASE_ANON_KEY,
-	{
-		auth: {
-			autoRefreshToken: true,
-			persistSession: true,
-			detectSessionInUrl: false
-		}
-	}
-);
+const supabase = browser
+	? createClient(import.meta.env.VITE_SUPABASE_URL, import.meta.env.VITE_SUPABASE_ANON_KEY, {
+			auth: {
+				autoRefreshToken: true,
+				persistSession: true,
+				detectSessionInUrl: false
+			}
+		})
+	: undefined;
 
 export default supabase;
