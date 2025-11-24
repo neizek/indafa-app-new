@@ -10,7 +10,7 @@
 // session
 // } from '$lib/stores/auth';
 // import { intendedUrl, previousUrl } from '$lib/stores/navigation';
-import { initTheme } from '$lib/stores/theme';
+// import { initTheme } from '$lib/stores/theme';
 import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
 // import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
@@ -28,7 +28,7 @@ export const ssr = false;
 // onMount(async () => {
 // const savedLocale = await preferences.get<string>('locale');
 loadTranslations(supportedLocalesOptions[0].value);
-initTheme();
+// initTheme();
 // await initSession();
 await initCarWashes();
 // initAuthListener();
