@@ -17,32 +17,19 @@ import { get } from 'svelte/store';
 import { resolve } from '$app/paths';
 import preferences from '$lib/helpers/preferences.js';
 import { initCarWashes } from '$lib/stores/carWashes';
+import { onMount } from 'svelte';
 
 export const prerender = true;
 export const ssr = false;
 
-const savedLocale = await preferences.get<string>('locale');
+onMount(async () => {
+	const savedLocale = await preferences.get<string>('locale');
 
-loadTranslations(savedLocale ?? supportedLocalesOptions[0].value);
-initTheme();
-
-// Wait for the app to be ready before initializing session
-// This prevents "browsing context going away" errors on iOS
-const initializeApp = async () => {
-	try {
-		// Small delay to ensure the webview is ready
-		await new Promise((resolve) => setTimeout(resolve, 100));
-	} catch {
-		// ignore
-	}
-
+	loadTranslations(savedLocale ?? supportedLocalesOptions[0].value);
+	initTheme();
 	await initSession();
 	await initCarWashes();
 	initAuthListener();
-};
-
-initializeApp().catch((err) => {
-	console.error('Failed to initialize app:', err);
 });
 
 LocalNotifications.checkPermissions()
