@@ -28,10 +28,10 @@ export const ssr = false;
 onMount(async () => {
 	const savedLocale = await preferences.get<string>('locale');
 	loadTranslations(savedLocale ?? supportedLocalesOptions[0].value);
-	initTheme();
-	await initSession();
+	// initTheme();
+	// await initSession();
 	await initCarWashes();
-	initAuthListener();
+	// initAuthListener();
 	// storeReady = true;
 });
 
