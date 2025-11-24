@@ -1,4 +1,4 @@
-<!-- <script lang="ts">
+<script lang="ts">
 	import { getOffers } from '$lib/helpers/offers';
 	import { t } from '$lib/translations/translations';
 	import { onMount } from 'svelte';
@@ -26,4 +26,4 @@
 			<Image src={offer.url} alt={$t('common.specialOffers')} />
 		</button>
 	{/snippet}
-</ScrollableSection> -->
+</ScrollableSection>
