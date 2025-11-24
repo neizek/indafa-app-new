@@ -10,13 +10,13 @@
 // session
 // } from '$lib/stores/auth';
 // import { intendedUrl, previousUrl } from '$lib/stores/navigation';
-// import { initTheme } from '$lib/stores/theme';
-// import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
+import { initTheme } from '$lib/stores/theme';
+import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
 // import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
 // import { resolve } from '$app/paths';
 // import preferences from '$lib/helpers/preferences.js';
-// import { initCarWashes } from '$lib/stores/carWashes';
+import { initCarWashes } from '$lib/stores/carWashes';
 // import { onMount } from 'svelte';
 // import { Capacitor } from '@capacitor/core';
 
@@ -27,10 +27,10 @@ export const ssr = false;
 
 // onMount(async () => {
 // const savedLocale = await preferences.get<string>('locale');
-// loadTranslations(supportedLocalesOptions[0].value);
-// initTheme();
+loadTranslations(supportedLocalesOptions[0].value);
+initTheme();
 // await initSession();
-// await initCarWashes();
+await initCarWashes();
 // initAuthListener();
 // storeReady = true;
 // });
