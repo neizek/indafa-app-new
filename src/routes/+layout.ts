@@ -16,7 +16,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
 // import { resolve } from '$app/paths';
 // import preferences from '$lib/helpers/preferences.js';
-import { initCarWashes } from '$lib/stores/carWashes';
+// import { initCarWashes } from '$lib/stores/carWashes';
 // import { onMount } from 'svelte';
 import { Capacitor } from '@capacitor/core';
 
@@ -30,7 +30,7 @@ export const ssr = false;
 loadTranslations(supportedLocalesOptions[0].value);
 initTheme();
 // await initSession();
-initCarWashes();
+// initCarWashes();
 // initAuthListener();
 // storeReady = true;
 // });

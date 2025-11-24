@@ -8,6 +8,8 @@
 	import Toaster from '$lib/components/ui/Toaster.svelte';
 	import type { Route } from '$lib/constants/routes';
 	import { closeAllPopUps } from '$lib/stores/popUp';
+	import { onMount } from 'svelte';
+	import { initCarWashes } from '$lib/stores/carWashes';
 
 	let { children } = $props();
 
@@ -15,6 +17,10 @@
 	// 	previousUrl.set(from?.url.pathname as Route);
 	// 	closeAllPopUps();
 	// });
+
+	onMount(async () => {
+		await initCarWashes();
+	});
 </script>
 
 <svelte:head>
