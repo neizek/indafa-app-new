@@ -10,6 +10,7 @@
 	import Toaster from '$lib/components/ui/Toaster.svelte';
 	import type { Route } from '$lib/constants/routes';
 	import { closeAllPopUps } from '$lib/stores/popUp';
+	import { createClient } from '@supabase/supabase-js';
 
 	let { children } = $props();
 
@@ -17,6 +18,19 @@
 		previousUrl.set(from?.url.pathname as Route);
 		closeAllPopUps();
 	});
+
+	const supabase = createClient(
+		import.meta.env.VITE_SUPABASE_URL,
+		import.meta.env.VITE_SUPABASE_ANON_KEY,
+		{
+			auth: {
+				autoRefreshToken: true,
+				persistSession: true,
+				detectSessionInUrl: false
+			}
+		}
+	);
+	console.log(supabase);
 </script>
 
 <svelte:head>
