@@ -16,7 +16,7 @@ export async function getCarWashes(): Promise<Array<CarWash>> {
 		throw error;
 	}
 
-	return data ?? [];
+	return data;
 }
 
 export function getWorkingDatesOptions(

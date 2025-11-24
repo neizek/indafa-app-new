@@ -9,7 +9,14 @@ export async function initCarWashes(): Promise<void> {
 
 	if (!fetchedCarWashes) {
 		fetchedCarWashes = await getCarWashes();
-		preferences.set('carWashes', carWashes, 86400000);
+		getCarWashes()
+			.then((response) => {
+				fetchedCarWashes = response;
+			})
+			.catch(() => {
+				fetchedCarWashes = [];
+			});
+		preferences.set('carWashes', fetchedCarWashes, 86400000);
 	}
 
 	carWashes.set(fetchedCarWashes);
