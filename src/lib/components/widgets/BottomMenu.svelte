@@ -5,7 +5,7 @@
 	import { t } from '$lib/translations/translations';
 	import { page } from '$app/state';
 	import type { Component } from 'svelte';
-	// import SettingsForm from '../forms/SettingsForm.svelte';
+	import SettingsForm from '../forms/SettingsForm.svelte';
 	import { ROUTES } from '$lib/constants/routes';
 
 	interface MenuItem {
@@ -23,13 +23,13 @@
 	];
 
 	function createSettingsPopup() {
-		// createPopUp({
-		// 	title: 'common.settings',
-		// 	content: {
-		// 		component: SettingsForm
-		// 	},
-		// 	icon: Settings
-		// });
+		createPopUp({
+			title: 'common.settings',
+			content: {
+				component: SettingsForm
+			},
+			icon: Settings
+		});
 	}
 
 	function onAction(action?: () => void, link?: string) {
