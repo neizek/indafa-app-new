@@ -22,7 +22,7 @@ export async function initSession() {
 		} = await supabase.auth.getSession();
 
 		if (error) {
-			console.log('Error with initiating session:', error);
+			console.error('Error with initiating session:', error.message || error);
 			return null;
 		}
 
@@ -32,7 +32,11 @@ export async function initSession() {
 
 		return currentSession;
 	} catch (err) {
-		console.log('Exception initializing session:', err);
+		console.error(
+			'Exception initializing session:',
+			err instanceof Error ? err.message : JSON.stringify(err)
+		);
+		console.error('Full error details:', err);
 		return null;
 	}
 }
