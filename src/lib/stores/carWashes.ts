@@ -4,18 +4,18 @@ import { getCarWashes } from '$lib/helpers/carWashes';
 import type { SelectOption } from '$lib/types/ui';
 import preferences from '$lib/helpers/preferences';
 
-async function initCarWashes(): Promise<CarWash[]> {
-	let carWashes = (await preferences.get('carWashes')) as CarWash[];
+export async function initCarWashes(): Promise<void> {
+	let fetchedCarWashes = (await preferences.get('carWashes')) as CarWash[];
 
-	if (!carWashes) {
-		carWashes = await getCarWashes();
+	if (!fetchedCarWashes) {
+		fetchedCarWashes = await getCarWashes();
 		preferences.set('carWashes', carWashes, 86400000);
 	}
 
-	return carWashes;
+	carWashes.set(fetchedCarWashes);
 }
 
-export const carWashes = writable<Array<CarWash>>(await initCarWashes());
+export const carWashes = writable<Array<CarWash>>([]);
 export const carWashesOptions: Readable<SelectOption[]> = derived(carWashes, (carWashes) =>
 	carWashes.map((carWash) => ({
 		value: carWash.id,

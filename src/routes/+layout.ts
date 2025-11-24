@@ -16,6 +16,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { get } from 'svelte/store';
 import { resolve } from '$app/paths';
 import preferences from '$lib/helpers/preferences.js';
+import { initCarWashes } from '$lib/stores/carWashes';
 
 export const prerender = true;
 export const ssr = false;
@@ -25,6 +26,7 @@ const savedLocale = await preferences.get<string>('locale');
 loadTranslations(savedLocale ?? supportedLocalesOptions[0].value);
 initTheme();
 await initSession();
+await initCarWashes();
 initAuthListener();
 
 LocalNotifications.checkPermissions()
