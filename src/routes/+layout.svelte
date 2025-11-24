@@ -1,6 +1,4 @@
 <script lang="ts">
-	// import '../mapbox.css';
-	// import '../app.css';
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
 	import BottomMenu from '$lib/components/widgets/BottomMenu.svelte';

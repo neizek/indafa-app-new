@@ -13,11 +13,11 @@ import type { Session, VerifyOtpParams } from '@supabase/supabase-js';
 import { KeyRound, MailCheck, Pen, Phone, User, UserPen } from '@lucide/svelte';
 import EditProfileForm from '$lib/components/forms/MissingProfileDataForm.svelte';
 import { session, user, userRole } from '$lib/stores/auth';
-import storage from './storage';
 import EditUserMenu from '$lib/components/widgets/EditUserMenu.svelte';
 import ChangeEmailForm from '$lib/components/forms/ChangeEmailForm.svelte';
 import ChangePhoneForm from '$lib/components/forms/ChangePhoneForm.svelte';
 import ChangePersonalDataForm from '$lib/components/forms/ChangePersonalDataForm.svelte';
+import preferences from './preferences';
 
 const WHITELISTED_EMAILS = ['test@example.com'];
 
@@ -35,9 +35,9 @@ export function clearUser() {
 	session.set(null);
 	user.set(null);
 	vehiclesStore.clear();
-	storage.remove('vehicles');
+	preferences.remove('vehicles');
 	appointmentsStore.clear();
-	storage.remove('appointments');
+	preferences.remove('appointments');
 	userRole.set(null);
 }
 

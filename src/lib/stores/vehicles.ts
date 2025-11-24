@@ -2,7 +2,7 @@ import { getVehiclesByUserId } from '$lib/helpers/vehicles';
 import type { Vehicle } from '$lib/types/vehicles';
 import { derived, writable } from 'svelte/store';
 import { session } from './auth';
-import storage from '$lib/helpers/storage';
+import preferences from '$lib/helpers/preferences';
 
 const vehiclesStore = (() => {
 	const { subscribe, set, update } = writable<Array<Vehicle>>([]);
@@ -12,18 +12,18 @@ const vehiclesStore = (() => {
 			return [];
 		}
 
-		let vehicles: Vehicle[] | null = storage.get('vehicles');
+		let vehicles: Vehicle[] | null = await preferences.get('vehicles');
 
 		if (!vehicles) vehicles = (await getVehiclesByUserId(userId)) || [];
 
-		storage.set('vehicles', vehicles);
+		preferences.set('vehicles', vehicles);
 		vehiclesStore.set(vehicles);
 	}
 
 	function removeVehicle(id: number) {
 		update((items) => {
 			const updatedVehicles = items.filter((v) => v.id !== id);
-			storage.set('vehicles', updatedVehicles);
+			preferences.set('vehicles', updatedVehicles);
 
 			return updatedVehicles;
 		});
@@ -31,14 +31,14 @@ const vehiclesStore = (() => {
 
 	function addVehicle(vehicle: Vehicle) {
 		const updatedVehicles = update((items) => [...items, vehicle]);
-		storage.set('vehicles', updatedVehicles);
+		preferences.set('vehicles', updatedVehicles);
 
 		return updatedVehicles;
 	}
 
 	function clearVehicles() {
 		vehiclesStore.set([]);
-		storage.remove('vehicles');
+		preferences.remove('vehicles');
 	}
 
 	return {

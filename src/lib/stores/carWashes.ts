@@ -2,14 +2,14 @@ import { derived, writable, type Readable } from 'svelte/store';
 import type { CarWash } from '../types/carWashes';
 import { getCarWashes } from '$lib/helpers/carWashes';
 import type { SelectOption } from '$lib/types/ui';
-import storage from '$lib/helpers/storage';
+import preferences from '$lib/helpers/preferences';
 
 async function initCarWashes(): Promise<CarWash[]> {
-	let carWashes = storage.get('carWashes') as CarWash[];
+	let carWashes = (await preferences.get('carWashes')) as CarWash[];
 
 	if (!carWashes) {
 		carWashes = await getCarWashes();
-		storage.set('carWashes', carWashes, 86400000);
+		preferences.set('carWashes', carWashes, 86400000);
 	}
 
 	return carWashes;
