@@ -16,10 +16,25 @@ export const isReviewer = derived(userRole, ($role) => $role === UserRolesEnum.r
 
 export async function initSession() {
 	try {
+		// Add timeout to handle iOS browsing context going away
+		const timeoutPromise = new Promise<never>((_, reject) =>
+			setTimeout(() => reject(new Error('Session initialization timeout')), 5000)
+		);
+
+		const sessionPromise = supabase.auth.getSession();
+
+		const result = (await Promise.race([sessionPromise, timeoutPromise]).catch((err) => {
+			if (err.message === 'Session initialization timeout') {
+				console.warn('Session initialization timed out (iOS context may be going away)');
+				return { data: { session: null }, error: null };
+			}
+			throw err;
+		})) as Awaited<ReturnType<typeof supabase.auth.getSession>>;
+
 		const {
 			data: { session: currentSession },
 			error
-		} = await supabase.auth.getSession();
+		} = result;
 
 		if (error) {
 			console.error('Error with initiating session:', error.message || error);
@@ -32,11 +47,17 @@ export async function initSession() {
 
 		return currentSession;
 	} catch (err) {
-		console.error(
-			'Exception initializing session:',
-			err instanceof Error ? err.message : JSON.stringify(err)
-		);
-		console.error('Full error details:', err);
+		const errorMessage = err instanceof Error ? err.message : JSON.stringify(err);
+		// Don't treat "browsing context" errors as critical - they happen during app lifecycle
+		if (errorMessage.includes('browsing context') || errorMessage.includes('context')) {
+			console.warn(
+				'Session initialization interrupted (likely due to app lifecycle):',
+				errorMessage
+			);
+		} else {
+			console.error('Exception initializing session:', errorMessage);
+			console.error('Full error details:', err);
+		}
 		return null;
 	}
 }

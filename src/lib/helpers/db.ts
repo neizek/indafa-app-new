@@ -10,10 +10,20 @@ if (!supabaseUrl || !supabaseKey) {
 	});
 }
 
+// Check if running on a native platform (Capacitor)
+const isNativePlatform = () => {
+	try {
+		return !!(window as any).capacitor;
+	} catch {
+		return false;
+	}
+};
+
 const supabase = createClient(supabaseUrl || '', supabaseKey || '', {
 	auth: {
 		autoRefreshToken: true,
-		persistSession: true,
+		// Disable persistSession on native platforms to avoid iOS browsing context issues
+		persistSession: !isNativePlatform(),
 		detectSessionInUrl: false
 	}
 });
