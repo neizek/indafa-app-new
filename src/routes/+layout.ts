@@ -1,23 +1,23 @@
 // import { goto } from '$app/navigation';
 // import { ROUTES } from '$lib/constants/routes';
 // import { callToLoginPopUp } from '$lib/helpers/auth.js';
-import {
-	initAuthListener,
-	initSession
-	// isAdmin,
-	// isOperator,
-	// isReviewer,
-	// session
-} from '$lib/stores/auth';
+// import {
+// 	initAuthListener,
+// 	initSession
+// isAdmin,
+// isOperator,
+// isReviewer,
+// session
+// } from '$lib/stores/auth';
 // import { intendedUrl, previousUrl } from '$lib/stores/navigation';
 // import { initTheme } from '$lib/stores/theme';
-import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
+// import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
 // import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
 // import { resolve } from '$app/paths';
 // import preferences from '$lib/helpers/preferences.js';
-import { initCarWashes } from '$lib/stores/carWashes';
-import { onMount } from 'svelte';
+// import { initCarWashes } from '$lib/stores/carWashes';
+// import { onMount } from 'svelte';
 // import { Capacitor } from '@capacitor/core';
 
 export const prerender = true;
@@ -25,15 +25,15 @@ export const ssr = false;
 
 // let storeReady = false;
 
-onMount(async () => {
-	// const savedLocale = await preferences.get<string>('locale');
-	loadTranslations(supportedLocalesOptions[0].value);
-	// initTheme();
-	// await initSession();
-	await initCarWashes();
-	// initAuthListener();
-	// storeReady = true;
-});
+// onMount(async () => {
+// const savedLocale = await preferences.get<string>('locale');
+// loadTranslations(supportedLocalesOptions[0].value);
+// initTheme();
+// await initSession();
+// await initCarWashes();
+// initAuthListener();
+// storeReady = true;
+// });
 
 // const adminRoutes = [ROUTES.ADMIN.DASHBOARD, ROUTES.ADMIN.APPOINTMENTS];
 // const operatorRoutes = [ROUTES.OPERATOR];

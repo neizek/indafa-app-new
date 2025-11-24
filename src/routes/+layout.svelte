@@ -11,10 +11,10 @@
 
 	let { children } = $props();
 
-	beforeNavigate(({ type, from }) => {
-		previousUrl.set(from?.url.pathname as Route);
-		closeAllPopUps();
-	});
+	// beforeNavigate(({ type, from }) => {
+	// 	previousUrl.set(from?.url.pathname as Route);
+	// 	closeAllPopUps();
+	// });
 </script>
 
 <svelte:head>
