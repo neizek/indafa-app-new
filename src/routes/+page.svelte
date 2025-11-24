@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { ClockPlus } from '@lucide/svelte';
-	// import { t } from '$lib/translations/translations';
 	import { goto } from '$app/navigation';
 	import IndafaLogo from '$lib/assets/indafa.svg?raw';
 	import OffersBlock from '$lib/components/widgets/OffersBlock.svelte';
