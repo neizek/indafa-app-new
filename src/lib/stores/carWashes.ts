@@ -7,20 +7,14 @@ import preferences from '$lib/helpers/preferences';
 export const carWashes = writable<Array<CarWash>>([]);
 
 export async function initCarWashes(): Promise<void> {
-	let fetchedCarWashes = (await preferences.get('carWashes')) as CarWash[];
+	let fetchedCarWashes = await preferences.get<CarWash[]>('carWashes');
 
 	if (!fetchedCarWashes) {
-		getCarWashes()
-			.then((response) => {
-				fetchedCarWashes = response;
-			})
-			.catch(() => {
-				fetchedCarWashes = [];
-			});
-		preferences.set('carWashes', fetchedCarWashes, 86400000);
+		fetchedCarWashes = await getCarWashes();
 	}
 
-	carWashes.set(fetchedCarWashes);
+	if (fetchedCarWashes) preferences.set('carWashes', fetchedCarWashes, 86400000);
+	carWashes.set(fetchedCarWashes ?? []);
 }
 
 export const carWashesOptions: Readable<SelectOption[]> = derived(carWashes, (carWashes) =>

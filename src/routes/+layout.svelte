@@ -13,13 +13,9 @@
 
 	let { children } = $props();
 
-	// beforeNavigate(({ type, from }) => {
-	// 	previousUrl.set(from?.url.pathname as Route);
-	// 	closeAllPopUps();
-	// });
-
-	onMount(async () => {
-		await initCarWashes();
+	beforeNavigate(({ type, from }) => {
+		previousUrl.set(from?.url.pathname as Route);
+		closeAllPopUps();
 	});
 </script>
 

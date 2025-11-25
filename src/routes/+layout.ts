@@ -15,10 +15,11 @@ import { loadTranslations, supportedLocalesOptions } from '$lib/translations/tra
 import { LocalNotifications } from '@capacitor/local-notifications';
 // import { get } from 'svelte/store';
 // import { resolve } from '$app/paths';
-// import preferences from '$lib/helpers/preferences.js';
+import preferences from '$lib/helpers/preferences.js';
 // import { initCarWashes } from '$lib/stores/carWashes';
 // import { onMount } from 'svelte';
 import { Capacitor } from '@capacitor/core';
+import { initCarWashes } from '$lib/stores/carWashes.js';
 
 export const prerender = true;
 export const ssr = false;
@@ -26,9 +27,10 @@ export const ssr = false;
 // let storeReady = false;
 
 // onMount(async () => {
-// const savedLocale = await preferences.get<string>('locale');
-loadTranslations(supportedLocalesOptions[0].value);
+const savedLocale = await preferences.get<string>('locale');
+loadTranslations(savedLocale ?? supportedLocalesOptions[0].value);
 initTheme();
+initCarWashes();
 // await initSession();
 // initCarWashes();
 // initAuthListener();
