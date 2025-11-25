@@ -1,14 +1,14 @@
 // import { goto } from '$app/navigation';
 import { ROUTES } from '$lib/constants/routes';
 // import { callToLoginPopUp } from '$lib/helpers/auth.js';
-// import {
-// 	initAuthListener,
-// 	initSession,
-// 	isAdmin,
-// 	isOperator,
-// 	isReviewer,
-// 	session
-// } from '$lib/stores/auth';
+import {
+	initAuthListener
+	// 	initSession,
+	// 	isAdmin,
+	// 	isOperator,
+	// 	isReviewer,
+	// 	session
+} from '$lib/stores/auth';
 // import { intendedUrl, previousUrl } from '$lib/stores/navigation';
 import { initTheme } from '$lib/stores/theme';
 import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
@@ -26,21 +26,13 @@ import preferences from '$lib/helpers/preferences.js';
 export const prerender = true;
 export const ssr = false;
 
-// let storeReady = false;
-
-// onMount(async () => {
-// const savedLocale = await preferences.get<string>('locale');
 preferences.get<string>('locale').then((locale) => {
 	loadTranslations(locale ?? supportedLocalesOptions[0].value);
 });
 initTheme();
 initCarWashes();
 initSession();
-// await initSession();
-// initCarWashes();
-// initAuthListener();
-// storeReady = true;
-// });
+initAuthListener();
 
 const adminRoutes = [ROUTES.ADMIN.DASHBOARD, ROUTES.ADMIN.APPOINTMENTS];
 const operatorRoutes = [ROUTES.OPERATOR];
