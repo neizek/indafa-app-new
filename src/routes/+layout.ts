@@ -1,26 +1,22 @@
-// import { goto } from '$app/navigation';
+import { goto } from '$app/navigation';
 import { ROUTES } from '$lib/constants/routes';
-// import { callToLoginPopUp } from '$lib/helpers/auth.js';
+import { callToLoginPopUp } from '$lib/helpers/auth.js';
 import {
-	initAuthListener
-	// 	initSession,
-	// 	isAdmin,
-	// 	isOperator,
-	// 	isReviewer,
-	// 	session
+	initAuthListener,
+	initSession,
+	isAdmin,
+	isOperator,
+	isReviewer,
+	session
 } from '$lib/stores/auth';
-// import { intendedUrl, previousUrl } from '$lib/stores/navigation';
+import { intendedUrl, previousUrl } from '$lib/stores/navigation';
 import { initTheme } from '$lib/stores/theme';
 import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
 import { LocalNotifications } from '@capacitor/local-notifications';
-// import { get } from 'svelte/store';
-// import { resolve } from '$app/paths';
-// import preferences from '$lib/helpers/preferences.js';
-// import { initCarWashes } from '$lib/stores/carWashes';
-// import { onMount } from 'svelte';
+import { get } from 'svelte/store';
+import { resolve } from '$app/paths';
 import { Capacitor } from '@capacitor/core';
 import { initCarWashes } from '$lib/stores/carWashes.js';
-import { initSession } from '$lib/stores/auth.js';
 import preferences from '$lib/helpers/preferences.js';
 
 export const prerender = true;
@@ -68,21 +64,21 @@ export async function load(page) {
 
 	console.log(needsAuth, operatorsOnly, adminsOnly);
 	// Make sure session is loaded before redirecting
-	// if (needsAuth && !get(session)) {
-	// 	const navigateToLink = get(previousUrl) ?? ROUTES.HOME;
-	// 	intendedUrl.set(page.url);
-	// 	await goto(resolve(navigateToLink as '/'), { replaceState: true });
-	// 	callToLoginPopUp();
-	// 	return {};
-	// }
+	if (needsAuth && !get(session)) {
+		const navigateToLink = get(previousUrl) ?? ROUTES.HOME;
+		intendedUrl.set(page.url);
+		await goto(resolve(navigateToLink as '/'), { replaceState: true });
+		callToLoginPopUp();
+		return {};
+	}
 
-	// if (operatorsOnly && !get(isOperator) && !get(isAdmin) && !get(isReviewer)) {
-	// 	goto(resolve(ROUTES.HOME));
-	// 	return {};
-	// }
+	if (operatorsOnly && !get(isOperator) && !get(isAdmin) && !get(isReviewer)) {
+		goto(resolve(ROUTES.HOME));
+		return {};
+	}
 
-	// if (adminsOnly && !get(isAdmin) && !get(isReviewer)) {
-	// 	goto(resolve(ROUTES.HOME));
-	// 	return {};
-	// }
+	if (adminsOnly && !get(isAdmin) && !get(isReviewer)) {
+		goto(resolve(ROUTES.HOME));
+		return {};
+	}
 }
