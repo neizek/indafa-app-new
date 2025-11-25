@@ -11,12 +11,13 @@
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
 		class="fixed inset-0 z-50 bg-surface-50-950/50"
-		transition:fade={{ duration: 200 }}
+		out:fade={{ duration: 200, delay: 1 }}
+		in:fade={{ duration: 200, delay: 1 }}
 		on:click|self={() => closePopUp(popUp.id)}
 	>
 		<div
 			class="absolute right-4 bottom-0 left-4 mx-auto mb-4 max-w-sm space-y-4 card bg-surface-50 p-4 shadow-xl dark:bg-surface-900"
-			transition:fly={{ y: 200, duration: 300, easing: cubicOut }}
+			transition:fly={{ y: 200, duration: 300, easing: cubicOut, delay: 1 }}
 		>
 			<header class="flex items-center justify-between">
 				<div class="flex items-center gap-2">

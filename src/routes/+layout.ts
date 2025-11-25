@@ -62,7 +62,6 @@ export async function load(page) {
 	);
 	const adminsOnly = adminRoutes.some((route) => page.url.pathname.startsWith(route as string));
 
-	console.log(needsAuth, operatorsOnly, adminsOnly);
 	// Make sure session is loaded before redirecting
 	if (needsAuth && !get(session)) {
 		const navigateToLink = get(previousUrl) ?? ROUTES.HOME;

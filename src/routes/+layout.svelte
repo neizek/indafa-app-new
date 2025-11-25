@@ -21,11 +21,11 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<PopUp />
-<Toaster />
-
-<div class="m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30">
+<div
+	class="m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30 pt-[env(safe-area-inset-top)]"
+>
+	<PopUp />
+	<Toaster />
 	{@render children()}
+	<BottomMenu />
 </div>
-
-<BottomMenu />
