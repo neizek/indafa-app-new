@@ -21,6 +21,7 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { Capacitor } from '@capacitor/core';
 import { initCarWashes } from '$lib/stores/carWashes.js';
 import { initSession } from '$lib/stores/auth.js';
+import preferences from '$lib/helpers/preferences.js';
 
 export const prerender = true;
 export const ssr = false;
@@ -29,7 +30,9 @@ export const ssr = false;
 
 // onMount(async () => {
 // const savedLocale = await preferences.get<string>('locale');
-loadTranslations(supportedLocalesOptions[0].value);
+preferences.get<string>('locale').then((locale) => {
+	loadTranslations(locale ?? supportedLocalesOptions[0].value);
+});
 initTheme();
 initCarWashes();
 initSession();
