@@ -4,6 +4,11 @@
 @import '@skeletonlabs/skeleton-svelte';
 @import '@skeletonlabs/skeleton/themes/cerberus';
 
+button,
+.btn-icon {
+	-webkit-tap-highlight-color: transparent;
+}
+
 /* #region MapBox */
 
 .mapboxgl-map {

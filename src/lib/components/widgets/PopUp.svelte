@@ -7,16 +7,16 @@
 </script>
 
 {#each $popUps as popUp (popUp.id)}
-	<!-- {#if popUp} -->
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
-	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
-		class="fixed inset-0 z-50 bg-surface-50-950/50 will-change-auto backface-hidden transform-gpu"
-		transition:fade={{ duration: 300 }}
+		class="fixed inset-0 z-50 bg-surface-50-950/50 backdrop-blur-xs will-change-auto backface-hidden transform-gpu"
+		role="dialog"
+		tabindex="-1"
+		transition:fade={{ duration: 200 }}
 		on:click|self={() => closePopUp(popUp.id)}
 	></div>
 	<div
-		class="fixed right-4 z-51 bottom-0 left-4 mx-auto mb-4 max-w-sm space-y-4 card bg-surface-50 p-4 shadow-xl dark:bg-surface-900"
+		class="fixed right-4 z-51 bottom-0 left-4 mx-auto mb-4 max-w-sm space-y-4 card bg-surface-50 p-4 shadow-xl dark:bg-surface-900 will-change-auto backface-hidden transform-gpu"
 		transition:fly={{ y: 200, duration: 300, easing: cubicOut }}
 	>
 		<header class="flex items-center justify-between">
@@ -40,5 +40,4 @@
 			{/if}
 		</article>
 	</div>
-	<!-- {/if} -->
 {/each}
