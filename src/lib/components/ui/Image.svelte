@@ -19,7 +19,7 @@
 
 {#key src}
 	{#if isLoading}
-		<div class={[ratio, 'w-full', cover, 'placeholder animate-pulse']}></div>
+		<div class={[ratio, 'w-full', cover, 'placeholder animate-pulse border-0']}></div>
 	{/if}
 	<img
 		in:fade

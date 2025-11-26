@@ -56,6 +56,14 @@ export function getErrorMessage(error: PostgrestError | null | undefined): strin
 		return 'common.errors.timePassedOrBookedByCustomer';
 	}
 
+	if (error.message.includes('sending magic link email')) {
+		return 'common.errors.couldNotSendEmail';
+	}
+
+	if (error.message.includes('not a valid phone number')) {
+		return 'common.errors.notValidPhoneNumber';
+	}
+
 	// Development mode: show actual error
 	if (import.meta.env.DEV) {
 		console.error('Supabase error:', error);

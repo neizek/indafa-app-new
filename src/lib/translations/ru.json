@@ -102,7 +102,9 @@
 		"cannotCompleteActionRelatedDataMissing": "Невозможно завершить действие: отсутствуют связанные данные",
 		"tokenExpiredOrInvalid": "Срок действия токена истек или он недействителен",
 		"mustAgreeWithTerms": "Вы должны согласиться с правилами и условиями",
-		"timePassedOrBookedByCustomer": "Врему уже прошло или было зарезервированно клиентом"
+		"timePassedOrBookedByCustomer": "Врему уже прошло или было зарезервированно клиентом",
+		"couldNotSendEmail": "На эту эл. почту не получилось отправить письмо",
+		"notValidPhoneNumber": "На этот номер невозможно отправить сообщение"
 	},
 	"management": "Управление",
 	"closed": "Закрыто",

@@ -22,7 +22,7 @@
 	items={offers}
 >
 	{#snippet itemRenderer(offer)}
-		<button onclick={() => goto(ROUTES.APPOINTMENT)}>
+		<button class="bg-transparent border-0" onclick={() => goto(ROUTES.APPOINTMENT)}>
 			<Image src={offer.url} alt={$t('common.specialOffers')} />
 		</button>
 	{/snippet}

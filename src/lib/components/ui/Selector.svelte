@@ -39,6 +39,11 @@
 		}
 	}
 
+	function handleClick(event: Event) {
+		const target = event.currentTarget as HTMLButtonElement | null;
+		target?.blur();
+	}
+
 	$effect(() => {
 		const currentOptions = options;
 		const foundOption = currentOptions.find((option) => option.value === value);
@@ -68,7 +73,9 @@
 				: `preset-tonal`}"
 			disabled={option.disabled}
 			bind:this={optionsRefs[index]}
-			onclick={() => chooseOption(option)}
+			onclick={(event) => {
+				(handleClick(event), chooseOption(option));
+			}}
 		>
 			<div class="flex items-center gap-2">
 				{#if Icon}

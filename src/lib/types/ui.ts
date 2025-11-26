@@ -19,5 +19,6 @@ export interface ButtonProps {
 	icon?: Component<IconProps>;
 	isLoading?: boolean;
 	disabled?: boolean;
+	wrapText?: boolean;
 	onclick?: () => void;
 }

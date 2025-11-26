@@ -102,7 +102,9 @@
 		"cannotCompleteActionRelatedDataMissing": "Cannot complete action: related data is missing",
 		"tokenExpiredOrInvalid": "The verification code is invalid or has expired",
 		"mustAgreeWithTerms": "You must agree to the terms and conditions.",
-		"timePassedOrBookedByCustomer": "Time passed or has been already booked by customer"
+		"timePassedOrBookedByCustomer": "Time passed or has been already booked by customer",
+		"couldNotSendEmail": "Could not send email to this address",
+		"notValidPhoneNumber": "Could not send message to this number"
 	},
 	"management": "Management",
 	"closed": "Closed",

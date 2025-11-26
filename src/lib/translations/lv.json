@@ -102,7 +102,9 @@
 		"cannotCompleteActionRelatedDataMissing": "Nav iespējams pabeigt darbību: trūkst saistīto datu",
 		"tokenExpiredOrInvalid": "Pārbaudes kods ir nederīgs vai ir beidzies tā derīguma termiņš",
 		"mustAgreeWithTerms": "Jums ir jāpiekrīt noteikumiem un nosacījumiem",
-		"timePassedOrBookedByCustomer": "Laiks ir pagājis vai jau ir rezervēts klientam"
+		"timePassedOrBookedByCustomer": "Laiks ir pagājis vai jau ir rezervēts klientam",
+		"couldNotSendEmail": "Uz šo e-pasta adresi neizdevās nosūtīt vēstuli",
+		"notValidPhoneNumber": "Uz šo numuru nav iespējams nosūtīt ziņojumu"
 	},
 	"management": "Kontrole",
 	"closed": "Slēgts",

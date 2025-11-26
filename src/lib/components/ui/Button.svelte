@@ -9,6 +9,7 @@
 		full = true,
 		isLoading = false,
 		disabled = false,
+		wrapText = false,
 		icon,
 		onclick
 	}: ButtonProps = $props();
@@ -29,9 +30,15 @@
 		presets[preset],
 		disabled ? 'opacity-50' : ''
 	];
+
+	function handleClick(event: Event) {
+		const target = event.currentTarget as HTMLButtonElement | null;
+		target?.blur();
+		if (onclick) onclick();
+	}
 </script>
 
-<button {type} class={classes} {onclick} {disabled}>
+<button {type} class={classes} onclick={handleClick} {disabled}>
 	{#if isLoading}
 		<LoaderCircle size={20} class="animate-spin" />
 	{:else}
@@ -39,7 +46,7 @@
 			<Icon size={20} />
 		{/if}
 		{#if label}
-			<span class="pb-0.5">{label}</span>
+			<span class="pb-0.5 {wrapText ? 'whitespace-normal wrap-break-word' : ''}">{label}</span>
 		{/if}
 		{#if preset === 'menu'}
 			<ChevronRight size={20} />

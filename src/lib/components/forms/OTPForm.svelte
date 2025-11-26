@@ -128,10 +128,11 @@
 			<Button
 				preset="ghost"
 				label={`${$t('common.didntReceiveResend')} ${countdown > 0 ? `${countdown}${$t('common.s')}` : ''}`}
-				full
 				isLoading={isLoadingResending}
 				disabled={isDisabled}
 				onclick={onResend}
+				wrapText
+				full
 			/>
 		{/snippet}
 	</PopUpButtons>
