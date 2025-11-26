@@ -10,7 +10,7 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
-		class="fixed inset-0 z-50 bg-surface-50-950/50 will-change-auto"
+		class="fixed inset-0 z-50 bg-surface-50-950/50 will-change-auto backface-hidden transform-gpu"
 		transition:fade={{ duration: 200 }}
 		on:click|self={() => closePopUp(popUp.id)}
 	>
