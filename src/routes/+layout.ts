@@ -16,20 +16,12 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { get } from 'svelte/store';
 import { resolve } from '$app/paths';
 import { Capacitor } from '@capacitor/core';
-import { initCarWashes } from '$lib/stores/carWashes.js';
-import preferences from '$lib/helpers/preferences.js';
+import { initCarWashes } from '$lib/stores/carWashes';
+import preferences from '$lib/helpers/preferences';
 
 export const csr = true;
 export const prerender = true;
 export const ssr = false;
-
-preferences.get<string>('locale').then((locale) => {
-	loadTranslations(locale ?? supportedLocalesOptions[0].value);
-});
-initTheme();
-initCarWashes();
-initSession();
-initAuthListener();
 
 const adminRoutes = [ROUTES.ADMIN.DASHBOARD, ROUTES.ADMIN.APPOINTMENTS];
 const operatorRoutes = [ROUTES.OPERATOR];
@@ -56,6 +48,14 @@ if (Capacitor.isNativePlatform()) {
 }
 
 export async function load(page) {
+	preferences.get<string>('locale').then(async (locale) => {
+		await loadTranslations(locale ?? supportedLocalesOptions[0].value);
+	});
+	await initTheme();
+	await initCarWashes();
+	await initSession();
+	initAuthListener();
+
 	// Route protection (middleware)
 	const needsAuth = protectedRoutes.some((route) => page.url.pathname.startsWith(route as string));
 	const operatorsOnly = operatorRoutes.some((route) =>
@@ -73,12 +73,12 @@ export async function load(page) {
 	}
 
 	if (operatorsOnly && !get(isOperator) && !get(isAdmin) && !get(isReviewer)) {
-		goto(resolve(ROUTES.HOME));
+		await goto(resolve(ROUTES.HOME));
 		return {};
 	}
 
 	if (adminsOnly && !get(isAdmin) && !get(isReviewer)) {
-		goto(resolve(ROUTES.HOME));
+		await goto(resolve(ROUTES.HOME));
 		return {};
 	}
 }
