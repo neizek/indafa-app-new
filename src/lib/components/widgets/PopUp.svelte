@@ -6,18 +6,17 @@
 	import { fade, fly } from 'svelte/transition';
 </script>
 
-{#each $popUps as popUp}
+{#each $popUps as popUp (popUp.id)}
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-static-element-interactions -->
 	<div
-		class="fixed inset-0 z-50 bg-surface-50-950/50"
-		out:fade={{ duration: 200, delay: 1 }}
-		in:fade={{ duration: 200, delay: 1 }}
+		class="fixed inset-0 z-50 bg-surface-50-950/50 will-change-auto"
+		transition:fade={{ duration: 200 }}
 		on:click|self={() => closePopUp(popUp.id)}
 	>
 		<div
 			class="absolute right-4 bottom-0 left-4 mx-auto mb-4 max-w-sm space-y-4 card bg-surface-50 p-4 shadow-xl dark:bg-surface-900"
-			transition:fly={{ y: 200, duration: 300, easing: cubicOut, delay: 1 }}
+			transition:fly={{ y: 200, duration: 300, easing: cubicOut }}
 		>
 			<header class="flex items-center justify-between">
 				<div class="flex items-center gap-2">

@@ -42,7 +42,7 @@
 	};
 </script>
 
-<div class="fixed right-4 bottom-0 left-4 mx-auto mb-4 max-w-sm">
+<div class="absolute right-4 bottom-0 left-4 mx-auto mb-4 max-w-sm">
 	<div
 		class="preset-glass-surface flex w-full items-center justify-around card bg-surface-100/5 px-3 dark:bg-surface-500/50"
 	>

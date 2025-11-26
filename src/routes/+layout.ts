@@ -19,6 +19,7 @@ import { Capacitor } from '@capacitor/core';
 import { initCarWashes } from '$lib/stores/carWashes.js';
 import preferences from '$lib/helpers/preferences.js';
 
+export const csr = true;
 export const prerender = true;
 export const ssr = false;
 
