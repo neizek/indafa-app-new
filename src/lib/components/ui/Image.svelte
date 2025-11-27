@@ -14,7 +14,29 @@
 	} = $props();
 
 	let isLoading: boolean = $state(true);
-	let imageRef: HTMLImageElement | null = $state(null);
+
+	$effect(() => {
+		if (!src) return;
+
+		isLoading = true;
+
+		const image = new Image();
+		const handleLoad = () => (isLoading = false);
+		const handleError = () => (isLoading = false);
+
+		image.addEventListener('load', handleLoad);
+		image.addEventListener('error', handleError);
+		image.src = src;
+
+		if (image.complete) {
+			isLoading = false;
+		}
+
+		return () => {
+			image.removeEventListener('load', handleLoad);
+			image.removeEventListener('error', handleError);
+		};
+	});
 </script>
 
 {#key src}
@@ -26,8 +48,7 @@
 		{src}
 		{alt}
 		class={[ratio, 'w-full', cover, isLoading ? 'hidden' : 'text-[0px]']}
-		bind:this={imageRef}
-		onload={() => (isLoading = false)}
-		onerror={() => (isLoading = false)}
+		loading="lazy"
+		decoding="async"
 	/>
 {/key}

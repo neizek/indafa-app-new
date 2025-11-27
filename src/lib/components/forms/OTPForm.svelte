@@ -68,6 +68,10 @@
 	const submitForm = createSubmitHandler();
 
 	function onResend() {
+		if (isDisabled) {
+			return;
+		}
+
 		isLoadingResending = true;
 		sendOTP(verificationType, input)
 			.then(() => {
@@ -115,25 +119,22 @@
 			oninput={onCodeInput}
 		/>
 	</FormItem>
-	<PopUpButtons>
-		{#snippet primaryButton()}
-			<Button
-				type="submit"
-				label={$t('common.submitCode')}
-				icon={Check}
-				isLoading={isLoadingVerification}
-			/>
-		{/snippet}
-		{#snippet secondaryButton()}
-			<Button
-				preset="ghost"
-				label={`${$t('common.didntReceiveResend')} ${countdown > 0 ? `${countdown}${$t('common.s')}` : ''}`}
-				isLoading={isLoadingResending}
-				disabled={isDisabled}
-				onclick={onResend}
-				wrapText
-				full
-			/>
-		{/snippet}
-	</PopUpButtons>
+	<div class="mt-4 flex flex-col gap-2">
+		<Button
+			type="submit"
+			label={$t('common.submitCode')}
+			icon={Check}
+			isLoading={isLoadingVerification}
+		/>
+		<button
+			type="button"
+			class="flex justify-center gap-2 {isDisabled ? 'opacity-50' : ''}"
+			onclick={onResend}
+		>
+			<span>{$t('common.didntReceiveResend')}</span>
+			{#if countdown > 0}
+				<span>{countdown}{$t('common.s')}</span>
+			{/if}
+		</button>
+	</div>
 </Form>

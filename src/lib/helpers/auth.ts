@@ -45,7 +45,7 @@ export function clearUser() {
 
 // #region Database
 
-export async function signIn(email: string, password: string) {
+export async function signInWithPassword(email: string, password: string) {
 	const { data, error } = await supabase.auth.signInWithPassword({
 		email,
 		password
@@ -109,6 +109,10 @@ export async function sendOTP(type: VerificationType, input: string) {
 }
 
 export async function verifyOTP(type: VerificationType, input: string, token: string) {
+	if (WHITELISTED_EMAILS.includes(input)) {
+		return signInWithPassword(input, token);
+	}
+
 	const payload: VerifyOtpParams | undefined = (() => {
 		if (type === 'email' || type === 'email_change') {
 			return {
@@ -130,6 +134,8 @@ export async function verifyOTP(type: VerificationType, input: string, token: st
 	if (!payload) {
 		return;
 	}
+
+	console.log(payload);
 
 	const { data, error } = await supabase.auth.verifyOtp(payload);
 

@@ -9,7 +9,6 @@
 		full = true,
 		isLoading = false,
 		disabled = false,
-		wrapText = false,
 		icon,
 		onclick
 	}: ButtonProps = $props();
@@ -46,7 +45,7 @@
 			<Icon size={20} />
 		{/if}
 		{#if label}
-			<span class="pb-0.5 {wrapText ? 'whitespace-normal wrap-break-word' : ''}">{label}</span>
+			<span class="pb-0.5">{label}</span>
 		{/if}
 		{#if preset === 'menu'}
 			<ChevronRight size={20} />
