@@ -7,6 +7,8 @@ import { LocalNotifications } from '@capacitor/local-notifications';
 import { t } from '$lib/translations/translations';
 import { formatAppointmentDateTime } from '$lib/helpers/datetime';
 
+// TO BE IMPROVED - notifications
+
 const appointmentsStore = (() => {
 	const { subscribe, set, update } = writable<Array<Appointment>>([]);
 
@@ -23,11 +25,48 @@ const appointmentsStore = (() => {
 
 		const appointments: Appointment[] = (await getUserAppointments(id)) || [];
 
+		const pending = await LocalNotifications.getPending();
+		await LocalNotifications.cancel(pending);
+
+		const pendingAppointments = appointments.filter(
+			(appointment) => appointment.status === AppointmentStatusEnum.pending
+		);
+
+		LocalNotifications.schedule({
+			notifications: pendingAppointments.map((appointment) => ({
+				title: get(t)('common.appointmentReminder'),
+				body: get(t)('common.appointmentReminderText', {
+					time: formatAppointmentDateTime(appointment.start_time).time
+				}),
+				id: appointment.id,
+				schedule: {
+					at: new Date(new Date(appointment.start_time).getTime() - 30 * 60 * 1000),
+					allowWhileIdle: true
+				}
+			}))
+		});
+
 		appointmentsStore.set(appointments);
 	}
 
 	function addAppointment(appointment: Appointment) {
 		const updatedVehicles = update((items) => [...items, appointment]);
+
+		LocalNotifications.schedule({
+			notifications: [
+				{
+					title: get(t)('common.appointmentReminder'),
+					body: get(t)('common.appointmentReminderText', {
+						time: formatAppointmentDateTime(appointment.start_time).time
+					}),
+					id: appointment.id,
+					schedule: {
+						at: new Date(new Date(appointment.start_time).getTime() - 30 * 60 * 1000),
+						allowWhileIdle: true
+					}
+				}
+			]
+		});
 
 		return updatedVehicles;
 	}
@@ -38,6 +77,8 @@ const appointmentsStore = (() => {
 				item.id === id ? { ...item, status: AppointmentStatusEnum.canceled } : item
 			)
 		);
+
+		LocalNotifications.cancel({ notifications: [{ id }] });
 	}
 
 	return {
@@ -51,25 +92,5 @@ const appointmentsStore = (() => {
 		clear: () => set([])
 	};
 })();
-
-appointmentsStore.subscribe((appointments) => {
-	const pendingAppointments = appointments.filter(
-		(appointment) => appointment.status === AppointmentStatusEnum.pending
-	);
-
-	LocalNotifications.schedule({
-		notifications: pendingAppointments.map((appointment) => ({
-			title: get(t)('common.appointmentReminder'),
-			body: get(t)('common.appointmentReminderText', {
-				time: formatAppointmentDateTime(appointment.start_time).time
-			}),
-			id: appointment.id,
-			schedule: {
-				at: new Date(new Date(appointment.start_time).getTime() - 30 * 60 * 1000),
-				allowWhileIdle: true
-			}
-		}))
-	});
-});
 
 export default appointmentsStore;

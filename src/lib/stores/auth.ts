@@ -44,7 +44,7 @@ export async function initSession() {
 		if (currentSession) {
 			initUser(currentSession);
 		}
-
+		setupAuthListener();
 		return currentSession;
 	} catch (err) {
 		const errorMessage = err instanceof Error ? err.message : JSON.stringify(err);
@@ -92,9 +92,4 @@ function setupAuthListener() {
 	} catch (err) {
 		console.log('Error setting up auth listener:', err);
 	}
-}
-
-// Call this after initial session setup to avoid race conditions
-export function initAuthListener() {
-	setupAuthListener();
 }

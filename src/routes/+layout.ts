@@ -1,14 +1,7 @@
 import { goto } from '$app/navigation';
 import { ROUTES } from '$lib/constants/routes';
 import { callToLoginPopUp } from '$lib/helpers/auth.js';
-import {
-	initAuthListener,
-	initSession,
-	isAdmin,
-	isOperator,
-	isReviewer,
-	session
-} from '$lib/stores/auth';
+import { initSession, isAdmin, isOperator, isReviewer, session } from '$lib/stores/auth';
 import { intendedUrl, previousUrl } from '$lib/stores/navigation';
 import { initTheme } from '$lib/stores/theme';
 import { loadTranslations, supportedLocalesOptions } from '$lib/translations/translations';
@@ -54,7 +47,6 @@ export async function load(page) {
 	await initTheme();
 	await initCarWashes();
 	await initSession();
-	initAuthListener();
 
 	// Route protection (middleware)
 	const needsAuth = protectedRoutes.some((route) => page.url.pathname.startsWith(route as string));

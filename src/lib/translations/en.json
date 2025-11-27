@@ -104,7 +104,8 @@
 		"mustAgreeWithTerms": "You must agree to the terms and conditions.",
 		"timePassedOrBookedByCustomer": "Time passed or has been already booked by customer",
 		"couldNotSendEmail": "Could not send email to this address",
-		"notValidPhoneNumber": "Could not send message to this number"
+		"notValidPhoneNumber": "Could not send message to this number",
+		"thisCarHasOwnerAlready": "A car with this license plate number is already linked to another account."
 	},
 	"management": "Management",
 	"closed": "Closed",
@@ -128,5 +129,7 @@
 	"addDayOff": "Add day off",
 	"noAnyDaysOff": "You haven't added any days off",
 	"doYouWantToDeleteDayOff": "Do you really want to delete the day off?",
-	"optional": "Optional"
+	"optional": "Optional",
+	"someAppointmentsCanceledByAdmin": "Unfortunately, your appointment was canceled due to technical reasons. Please try to choose another time.",
+	"closeNotification": "Close notification"
 }

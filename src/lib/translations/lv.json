@@ -104,7 +104,8 @@
 		"mustAgreeWithTerms": "Jums ir jāpiekrīt noteikumiem un nosacījumiem",
 		"timePassedOrBookedByCustomer": "Laiks ir pagājis vai jau ir rezervēts klientam",
 		"couldNotSendEmail": "Uz šo e-pasta adresi neizdevās nosūtīt vēstuli",
-		"notValidPhoneNumber": "Uz šo numuru nav iespējams nosūtīt ziņojumu"
+		"notValidPhoneNumber": "Uz šo numuru nav iespējams nosūtīt ziņojumu",
+		"thisCarHasOwnerAlready": "Automašīna ar šādu valsts numuru jau ir piesaistīta citam kontam."
 	},
 	"management": "Kontrole",
 	"closed": "Slēgts",
@@ -128,5 +129,7 @@
 	"addDayOff": "Pievienot brīvdienu",
 	"noAnyDaysOff": "Jūs neesat pievienojis nevienu brīvdienu",
 	"doYouWantToDeleteDayOff": "Vai tiešām vēlaties dzēst šo brīvdienu?",
-	"optional": "Neobligāts"
+	"optional": "Neobligāts",
+	"someAppointmentsCanceledByAdmin": "Diemžēl jūsu pieraksts tika atcelts tehnisku iemeslu dēļ. Lūdzu, mēģiniet veikt ierakstu citā laikā.",
+	"closeNotification": "Aizvērt paziņojumu"
 }

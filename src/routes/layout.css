@@ -11,12 +11,12 @@ label {
 }
 
 /* Disable hover on touch devices */
-@media (hover: none) {
+/* @media (hover: none) {
 	button:hover {
 		background-color: initial;
 		opacity: 1;
 	}
-}
+} */
 
 /* #region MapBox */
 

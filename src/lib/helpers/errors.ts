@@ -65,11 +65,11 @@ export function getErrorMessage(error: PostgrestError | null | undefined): strin
 	}
 
 	// Development mode: show actual error
-	if (import.meta.env.DEV) {
+	if (!import.meta.env.DEV) {
 		console.error('Supabase error:', error);
-		return `Error: ${error.message}`;
+		return error.message;
 	}
 
 	// Production: generic message
-	return 'common.errors.unknownError';
+	return error.message ?? 'common.errors.unknownError';
 }

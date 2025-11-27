@@ -8,12 +8,14 @@
 	import Button from '$lib/components/ui/Button.svelte';
 	import Section from '$lib/components/ui/Section.svelte';
 	import { t } from '$lib/translations/translations';
+	import BannerBlock from '$lib/components/widgets/BannerBlock.svelte';
 </script>
 
 <div class="h-auto w-full px-10 pt-5 dark:invert">
 	{@html IndafaLogo}
 </div>
 <OffersBlock />
+<BannerBlock />
 <AppointmentsBlock />
 <Section transparent>
 	<Button

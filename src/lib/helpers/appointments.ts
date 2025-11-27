@@ -67,6 +67,21 @@ async function changeAppointmentStatus(id: number, status: AppointmentStatusEnum
 	appointmentsStore.update((items) =>
 		items.map((item) => (item.id === id ? { ...item, status } : item))
 	);
+
+	if (status === AppointmentStatusEnum.canceled) {
+		const { error } = await supabase
+			.from('canceled_appointment')
+			.insert({
+				appointment_id: id
+			})
+			.select();
+
+		if (error) {
+			console.error('Error:', error);
+			throw error;
+		}
+	}
+
 	return data;
 }
 
@@ -228,6 +243,30 @@ function openCancelAppointmentPopUp(appointment: Appointment) {
 	});
 }
 
+async function getCanceledByAdminAppointments(ids: number[]) {
+	const { data, error } = await supabase
+		.from('canceled_appointment')
+		.select('*')
+		.in('appointment_id', ids);
+
+	if (error) {
+		console.error('Error fetching canceled appointments:', error);
+		throw error;
+	}
+
+	return data;
+}
+
+async function removeCanceledByAdminAppointments(ids: number[]) {
+	ids.forEach(async (id) => {
+		const { error } = await supabase.from('canceled_appointment').delete().eq('appointment_id', id);
+
+		if (error) {
+			throw error;
+		}
+	});
+}
+
 // #region Other
 
 async function getAvaliableTimes(
@@ -301,6 +340,8 @@ async function createTimeOptions(
 // #region Export
 
 export {
+	getCanceledByAdminAppointments,
+	removeCanceledByAdminAppointments,
 	createAppointment,
 	getUserAppointments,
 	getAppointmentsByDate,
