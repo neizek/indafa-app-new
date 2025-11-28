@@ -9,24 +9,14 @@
 	import type { Route } from '$lib/constants/routes';
 	import { closeAllPopUps } from '$lib/stores/popUp';
 	import { initSafeArea } from '$lib/helpers/safeArea';
-	import { Keyboard } from '@capacitor/keyboard';
 
 	let { children } = $props();
-	let isKeyboardOpen: boolean = $state(false);
 
 	beforeNavigate(({ from }) => {
 		previousUrl.set(from?.url.pathname as Route);
 		closeAllPopUps();
 	});
 	initSafeArea();
-
-	Keyboard.addListener('keyboardWillShow', () => {
-		isKeyboardOpen = true;
-	});
-
-	Keyboard.addListener('keyboardDidHide', () => {
-		isKeyboardOpen = false;
-	});
 </script>
 
 <svelte:head>
