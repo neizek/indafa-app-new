@@ -69,27 +69,19 @@ function setupAuthListener() {
 	if (authListenerInitialized) return;
 	authListenerInitialized = true;
 
-	try {
-		supabase.auth.onAuthStateChange((_event, newSession) => {
-			try {
-				if (_event === 'SIGNED_OUT' || !newSession) {
-					console.log('User signed out');
-					clearUser();
-					return;
-				}
+	supabase.auth.onAuthStateChange((_event, newSession) => {
+		if (_event === 'SIGNED_OUT' || !newSession) {
+			console.log('User signed out');
+			clearUser();
+			return;
+		}
 
-				if ((_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') && newSession) {
-					console.log('User signed in');
-					if (get(session)?.access_token !== newSession.access_token) {
-						initUser(newSession);
-					}
-					return;
-				}
-			} catch (err) {
-				console.log('Error in auth state change handler:', err);
+		if ((_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') && newSession) {
+			console.log('User signed in');
+			if (get(session)?.access_token !== newSession.access_token) {
+				initUser(newSession);
 			}
-		});
-	} catch (err) {
-		console.log('Error setting up auth listener:', err);
-	}
+			return;
+		}
+	});
 }

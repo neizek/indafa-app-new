@@ -1,4 +1,6 @@
 import preferences from '$lib/helpers/preferences';
+import { StatusBar, Style } from '@capacitor/status-bar';
+// import { SafeArea } from '@capacitor-community/safe-area';
 import { Moon, Sun } from '@lucide/svelte';
 import { writable } from 'svelte/store';
 
@@ -20,6 +22,9 @@ const isDarkThemePreffered = () =>
 export async function initTheme() {
 	let theme = (await preferences.get('theme')) as Theme;
 
+	StatusBar.setBackgroundColor({ color: '#00000000' });
+	StatusBar.setOverlaysWebView({ overlay: true });
+
 	if (!theme) {
 		theme = isDarkThemePreffered() ? Theme.Dark : Theme.Light;
 	}
@@ -30,5 +35,12 @@ export async function initTheme() {
 export function applyTheme(theme: Theme) {
 	currentTheme.set(theme);
 	preferences.set('theme', theme);
+
+	if (theme === Theme.Dark) {
+		StatusBar.setStyle({ style: Style.Dark });
+	} else if (theme === Theme.Light) {
+		StatusBar.setStyle({ style: Style.Light });
+	}
+
 	document.documentElement.classList.toggle('dark', theme === Theme.Dark);
 }
