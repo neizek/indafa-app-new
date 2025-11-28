@@ -26,28 +26,19 @@ export async function initSession() {
 		return null;
 	}
 
-	setupAuthListener();
 	return session;
 }
 
-// Setup auth state listener but with error handling
-let authListenerInitialized = false;
+supabase.auth.onAuthStateChange((_event, newSession) => {
+	if (_event === 'SIGNED_OUT' || !newSession) {
+		console.log('User signed out');
+		clearUser();
+		return;
+	}
 
-function setupAuthListener() {
-	if (authListenerInitialized) return;
-	authListenerInitialized = true;
-
-	supabase.auth.onAuthStateChange((_event, newSession) => {
-		if (_event === 'SIGNED_OUT' || !newSession) {
-			console.log('User signed out');
-			clearUser();
-			return;
-		}
-
-		if ((_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') && newSession) {
-			console.log('User signed in');
-			initUser(newSession);
-			return;
-		}
-	});
-}
+	if ((_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') && newSession) {
+		console.log('User signed in');
+		initUser(newSession);
+		return;
+	}
+});

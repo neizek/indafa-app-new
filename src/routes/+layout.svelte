@@ -8,28 +8,24 @@
 	import Toaster from '$lib/components/ui/Toaster.svelte';
 	import type { Route } from '$lib/constants/routes';
 	import { closeAllPopUps } from '$lib/stores/popUp';
-	import { SafeArea } from 'capacitor-plugin-safe-area';
-	import { onMount } from 'svelte';
 	import { initSafeArea } from '$lib/helpers/safeArea';
 	import { Keyboard } from '@capacitor/keyboard';
 
 	let { children } = $props();
-	let layout: HTMLElement;
+	let isKeyboardOpen: boolean = $state(false);
 
 	beforeNavigate(({ from }) => {
 		previousUrl.set(from?.url.pathname as Route);
 		closeAllPopUps();
 	});
+	initSafeArea();
 
-	onMount(async () => {
-		await initSafeArea();
-		Keyboard.addListener('keyboardWillShow', () => {
-			layout.classList.add('kb-open');
-		});
+	Keyboard.addListener('keyboardWillShow', () => {
+		isKeyboardOpen = true;
+	});
 
-		Keyboard.addListener('keyboardDidHide', () => {
-			layout.classList.remove('kb-open');
-		});
+	Keyboard.addListener('keyboardDidHide', () => {
+		isKeyboardOpen = false;
 	});
 </script>
 
@@ -38,8 +34,9 @@
 </svelte:head>
 
 <div
-	bind:this={layout}
-	class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30"
+	class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30 {isKeyboardOpen
+		? 'kb-open'
+		: ''}"
 >
 	<PopUp />
 	<Toaster />

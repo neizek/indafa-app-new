@@ -25,6 +25,8 @@ const appointmentsStore = (() => {
 
 		const appointments: Appointment[] = (await getUserAppointments(id)) || [];
 
+		appointmentsStore.set(appointments);
+
 		const pending = await LocalNotifications.getPending();
 		await LocalNotifications.cancel(pending);
 
@@ -45,8 +47,6 @@ const appointmentsStore = (() => {
 				}
 			}))
 		});
-
-		appointmentsStore.set(appointments);
 	}
 
 	function addAppointment(appointment: Appointment) {
@@ -87,7 +87,7 @@ const appointmentsStore = (() => {
 		update,
 		add: (appointment: Appointment) => addAppointment(appointment),
 		cancel: (id: number) => cancelAppointment(id),
-		init: () => getInitialAppointments(),
+		init: async () => await getInitialAppointments(),
 		remove: (id: number) => update((items) => items.filter((item) => item.id !== id)),
 		clear: () => set([])
 	};
