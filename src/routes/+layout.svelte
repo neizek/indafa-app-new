@@ -9,25 +9,27 @@
 	import type { Route } from '$lib/constants/routes';
 	import { closeAllPopUps } from '$lib/stores/popUp';
 	import { SafeArea } from 'capacitor-plugin-safe-area';
+	import { onMount } from 'svelte';
+	import { initSafeArea } from '$lib/helpers/safeArea';
+	import { Keyboard } from '@capacitor/keyboard';
+
 	let { children } = $props();
-
-	SafeArea.getSafeAreaInsets().then(({ insets }) => {
-		console.log(insets);
-		for (const [key, value] of Object.entries(insets)) {
-			document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`);
-		}
-	});
-
-	SafeArea.addListener('safeAreaChanged', (data) => {
-		const { insets } = data;
-		for (const [key, value] of Object.entries(insets)) {
-			document.documentElement.style.setProperty(`--safe-area-inset-${key}`, `${value}px`);
-		}
-	});
+	let layout: HTMLElement;
 
 	beforeNavigate(({ from }) => {
 		previousUrl.set(from?.url.pathname as Route);
 		closeAllPopUps();
+	});
+
+	onMount(async () => {
+		await initSafeArea();
+		Keyboard.addListener('keyboardWillShow', () => {
+			layout.classList.add('kb-open');
+		});
+
+		Keyboard.addListener('keyboardDidHide', () => {
+			layout.classList.remove('kb-open');
+		});
 	});
 </script>
 
@@ -35,7 +37,10 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30">
+<div
+	bind:this={layout}
+	class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30"
+>
 	<PopUp />
 	<Toaster />
 	{@render children()}
@@ -46,5 +51,9 @@
 	.Layout {
 		margin-top: var(--safe-area-inset-top, env(safe-area-inset-top));
 		margin-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
+	}
+
+	.kb-open {
+		margin-bottom: 1rem;
 	}
 </style>

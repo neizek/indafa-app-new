@@ -13,7 +13,7 @@ const appointmentsStore = (() => {
 	const { subscribe, set, update } = writable<Array<Appointment>>([]);
 
 	async function getInitialAppointments() {
-		if (!session) {
+		if (!get(session)) {
 			return [];
 		}
 
