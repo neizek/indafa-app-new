@@ -177,11 +177,11 @@ export async function signOut() {
 	if (error) {
 		if (error.name === 'AuthSessionMissingError') {
 			console.log('Session already missing, continuing logout');
-			return;
+			clearUser();
+		} else {
+			console.error('Sign out error:', error);
+			throw error;
 		}
-
-		console.error('Sign out error:', error);
-		throw error;
 	}
 }
 
