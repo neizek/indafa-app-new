@@ -175,6 +175,11 @@ export async function signOut() {
 	const { error } = await supabase.auth.signOut();
 
 	if (error) {
+		if (error.name === 'AuthSessionMissingError') {
+			console.log('Session already missing, continuing logout');
+			return;
+		}
+
 		console.error('Sign out error:', error);
 		throw error;
 	}
