@@ -33,11 +33,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<div
-	class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30 {isKeyboardOpen
-		? 'kb-open'
-		: ''}"
->
+<div class="Layout m-auto flex min-h-dvh max-w-xl flex-col gap-4 self-center p-4 pb-30">
 	<PopUp />
 	<Toaster />
 	{@render children()}
@@ -47,10 +43,10 @@
 <style>
 	.Layout {
 		margin-top: var(--safe-area-inset-top, env(safe-area-inset-top));
-		margin-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom));
+		/* margin-bottom: var(--safe-area-inset-bottom, env(safe-area-inset-bottom)); */
 	}
 
-	.kb-open {
+	/* .kb-open {
 		margin-bottom: 1rem;
-	}
+	} */
 </style>

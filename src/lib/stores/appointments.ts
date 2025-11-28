@@ -27,12 +27,17 @@ const appointmentsStore = (() => {
 
 		appointmentsStore.set(appointments);
 
-		const pending = await LocalNotifications.getPending();
-		await LocalNotifications.cancel(pending);
+		LocalNotifications.getPending().then((pending) => {
+			if (pending) LocalNotifications.cancel(pending);
+		});
 
 		const pendingAppointments = appointments.filter(
 			(appointment) => appointment.status === AppointmentStatusEnum.pending
 		);
+
+		if (appointments.length === 0) {
+			return;
+		}
 
 		LocalNotifications.schedule({
 			notifications: pendingAppointments.map((appointment) => ({
