@@ -33,12 +33,18 @@ supabase.auth.onAuthStateChange((_event, newSession) => {
 	if (_event === 'SIGNED_OUT' || !newSession) {
 		console.log('User signed out');
 		clearUser();
-		return;
 	}
 
 	if ((_event === 'SIGNED_IN' || _event === 'INITIAL_SESSION') && newSession) {
 		console.log('User signed in');
 		initUser(newSession);
-		return;
+	}
+
+	if (_event === 'TOKEN_REFRESHED') {
+		console.log('Token refreshed');
+	}
+
+	if (_event === 'USER_UPDATED') {
+		console.log('User updated');
 	}
 });
