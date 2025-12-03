@@ -4,7 +4,8 @@
 	import {
 		openChangeEmailPopUp,
 		openChangePersonalDataPopUp,
-		openChangePhonePopUp
+		openChangePhonePopUp,
+		openDeleteUserAccountPopUp
 	} from '$lib/helpers/auth';
 	import { t } from '$lib/translations/translations';
 </script>
@@ -28,5 +29,10 @@
 		label={$t('common.changePhone')}
 		onclick={openChangePhonePopUp}
 	/>
-	<!-- <Button preset="cancel" icon={Trash} label="Delete account" /> -->
+	<Button
+		preset="menuCancel"
+		icon={Trash}
+		label={$t('common.deleteAccount')}
+		onclick={openDeleteUserAccountPopUp}
+	/>
 </div>

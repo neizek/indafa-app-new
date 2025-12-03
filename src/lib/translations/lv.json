@@ -131,5 +131,7 @@
 	"doYouWantToDeleteDayOff": "Vai tiešām vēlaties dzēst šo brīvdienu?",
 	"optional": "Neobligāts",
 	"someAppointmentsCanceledByAdmin": "Diemžēl jūsu pieraksts tika atcelts tehnisku iemeslu dēļ. Lūdzu, mēģiniet veikt ierakstu citā laikā.",
-	"closeNotification": "Aizvērt paziņojumu"
+	"closeNotification": "Aizvērt paziņojumu",
+	"doYouWantToDeleteYourAccount": "Jūs zaudēsiet visus savus datus. Vai tiešām vēlaties dzēst savu kontu?",
+	"deleteAccount": "Dzēst kontu"
 }

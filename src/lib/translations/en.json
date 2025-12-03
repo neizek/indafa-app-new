@@ -131,5 +131,7 @@
 	"doYouWantToDeleteDayOff": "Do you really want to delete the day off?",
 	"optional": "Optional",
 	"someAppointmentsCanceledByAdmin": "Unfortunately, your appointment was canceled due to technical reasons. Please try to choose another time.",
-	"closeNotification": "Close notification"
+	"closeNotification": "Close notification",
+	"doYouWantToDeleteYourAccount": "You will lose all your data. Do you really want to delete your account?",
+	"deleteAccount": "Delete account"
 }

@@ -10,7 +10,7 @@ import type {
 	VerificationType
 } from '$lib/types/auth';
 import type { Session, VerifyOtpParams } from '@supabase/supabase-js';
-import { KeyRound, MailCheck, Pen, Phone, User, UserPen } from '@lucide/svelte';
+import { KeyRound, MailCheck, Pen, Phone, Trash, User, UserPen } from '@lucide/svelte';
 import EditProfileForm from '$lib/components/forms/MissingProfileDataForm.svelte';
 import { session, user, userRole } from '$lib/stores/auth';
 import EditUserMenu from '$lib/components/widgets/EditUserMenu.svelte';
@@ -18,6 +18,7 @@ import ChangeEmailForm from '$lib/components/forms/ChangeEmailForm.svelte';
 import ChangePhoneForm from '$lib/components/forms/ChangePhoneForm.svelte';
 import ChangePersonalDataForm from '$lib/components/forms/ChangePersonalDataForm.svelte';
 import preferences from './preferences';
+import DeleteAccountForm from '$lib/components/forms/DeleteAccountForm.svelte';
 
 const WHITELISTED_EMAILS = ['test@example.com'];
 
@@ -185,6 +186,15 @@ export async function signOut() {
 	}
 }
 
+export async function deleteUser() {
+	const { error } = await supabase.rpc('delete_user');
+
+	if (error) throw error;
+
+	signOut();
+	clearUser();
+}
+
 export async function getCustomerData(userId: string) {
 	const { data, error } = await supabase.rpc('get_user_contact_by_id', {
 		user_id: userId
@@ -271,6 +281,16 @@ export function openMissingProfileDataPopup() {
 		icon: Pen,
 		content: {
 			component: EditProfileForm
+		}
+	});
+}
+
+export function openDeleteUserAccountPopUp() {
+	createPopUp({
+		title: 'common.deleteAccount',
+		icon: Trash,
+		content: {
+			component: DeleteAccountForm
 		}
 	});
 }

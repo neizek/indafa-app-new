@@ -19,7 +19,9 @@
 		cancel: 'bg-error-950/20 text-error-900 dark:text-error-300',
 		tonal: 'bg-surface-100 dark:bg-surface-800/50',
 		ghost: 'bg-transparent',
-		menu: 'bg-transparent grid grid-cols-[auto_1fr_auto] text-left indent-2'
+		menu: 'bg-transparent grid grid-cols-[auto_1fr_auto] text-left indent-2',
+		menuCancel:
+			'bg-error-950/20 text-error-900 dark:text-error-300 grid grid-cols-[auto_1fr_auto] text-left indent-2'
 	};
 
 	let classes = [
@@ -33,7 +35,7 @@
 	function handleClick(event: Event) {
 		const target = event.currentTarget as HTMLButtonElement | null;
 		target?.blur();
-		if (onclick) onclick();
+		if (onclick && !isLoading) onclick();
 	}
 </script>
 
@@ -47,7 +49,7 @@
 		{#if label}
 			<span class="pb-0.5">{label}</span>
 		{/if}
-		{#if preset === 'menu'}
+		{#if preset === 'menu' || preset === 'menuCancel'}
 			<ChevronRight size={20} />
 		{/if}
 	{/if}

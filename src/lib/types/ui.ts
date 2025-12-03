@@ -14,7 +14,7 @@ export interface SelectOption {
 export interface ButtonProps {
 	type?: 'submit' | 'button';
 	label?: string;
-	preset?: 'primary' | 'cancel' | 'tonal' | 'ghost' | 'menu';
+	preset?: 'primary' | 'cancel' | 'tonal' | 'ghost' | 'menu' | 'menuCancel';
 	full?: boolean;
 	icon?: Component<IconProps>;
 	isLoading?: boolean;
